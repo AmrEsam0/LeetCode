@@ -10,23 +10,19 @@ using namespace std;
 class Solution {
    public:
     vector<int> plusOne(vector<int>& digits) {
-        vector<int> temp;
-        int i = digits[digits.size() - 1] + 1;
-        if (i > 9) {
-            while (i > 0) {
-                temp.push_back(i % 10);
-                i /= 10;
+        int size = digits.size();
+        if (!size)
+            return digits;
+        for (int i = size - 1; i >= 0; --i) {
+            if (digits[i] + 1 > 9) {
+                digits[i] = digits[i] + 1 - 10;
+                if (i == 0)
+                    digits.insert(digits.begin(), 1);
+            } else {
+                digits[i] = digits[i] + 1;
+                break;
             }
-            reverse(temp.begin(), temp.end());
-            digits.pop_back();
-            for (auto it : temp) {
-                digits.push_back(it);
-            }
-        } else {
-            digits.pop_back();
-            digits.push_back(i);
         }
-
         return digits;
     }
 };
